@@ -3,7 +3,13 @@ import RegisterForm from './components/RegisterForm'
 
 const Register = () => {
   return (
-    <Grid container height="100vh" alignItems="center" justifyContent="center">
+    <Grid
+      container
+      height="100vh"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ backgroundColor: '#F7F7F7' }}
+    >
       <div className="custom-shape-divider-bottom-1685654964">
         <svg
           data-name="Layer 1"
