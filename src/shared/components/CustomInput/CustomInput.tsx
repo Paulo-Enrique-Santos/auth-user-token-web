@@ -5,7 +5,7 @@ export interface Props {
   error: string
   value: string
   setValue: (value: string) => void
-  icon?: any
+  icon?: JSX.Element
 }
 
 const CustomInput = ({ label, error, value, setValue, icon }: Props) => {

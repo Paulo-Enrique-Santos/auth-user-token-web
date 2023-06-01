@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import CustomInput from './shared/components/CustomInput/CustomInput'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
 const AppRoutes = () => {
   return (
@@ -13,6 +14,7 @@ const AppRoutes = () => {
               error={'123'}
               value={'123123'}
               setValue={(e) => {}}
+              icon={<AccountCircleIcon />}
             />
           }
         />
