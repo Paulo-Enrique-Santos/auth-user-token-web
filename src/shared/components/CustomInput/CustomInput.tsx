@@ -23,15 +23,22 @@ const CustomInput = ({ label, error, value, setValue, icon }: Props) => {
         name={label}
         fullWidth
         value={value}
-        label={label}
+        label={label + ':'}
         variant="standard"
         helperText={
-          <Typography variant="body2" fontSize={12} component="span">
+          <Typography
+            variant="body2"
+            fontSize={12}
+            height={20}
+            component="span"
+            display="block"
+          >
             {error}
           </Typography>
         }
         InputLabelProps={{
           shrink: true,
+          style: { fontSize: 20 },
         }}
         InputProps={{
           startAdornment: icon && (
