@@ -1,4 +1,4 @@
-function Register() {
+const Register = () => {
   return (
     <h1>
       Register Comp apso adk asonent oaisd oai sd aosidn aosiaosidj oaisjd
