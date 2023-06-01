@@ -1,23 +1,11 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import CustomInput from './shared/components/CustomInput/CustomInput'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import { BrowserRouter, Route, Routes } from 'react-router-dom/dist/index'
+import Register from './pages/Register/Register'
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/cadastro"
-          element={
-            <CustomInput
-              label={'teste 123'}
-              error={'123'}
-              value={'123123'}
-              setValue={(e) => {}}
-              icon={<AccountCircleIcon />}
-            />
-          }
-        />
+        <Route path="/" element={<Register />} />
       </Routes>
     </BrowserRouter>
   )
