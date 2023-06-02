@@ -81,7 +81,7 @@ const LoginForm = ({ setShowRegister }: Props) => {
             <Typography
               onClick={setShowRegister}
               component="span"
-              color="secondary"
+              color="primary"
               style={{
                 cursor: 'pointer',
                 fontSize: 14,
@@ -122,8 +122,8 @@ const LoginForm = ({ setShowRegister }: Props) => {
               <Button
                 sx={{ borderRadius: '6px', padding: '10px 20px' }}
                 variant="contained"
-                type="submit"
                 fullWidth
+                type="submit"
               >
                 Entre
               </Button>

@@ -124,10 +124,10 @@ const RegisterForm = ({ setShowLogin }: Props) => {
             <Typography
               onClick={setShowLogin}
               component="span"
+              color="primary"
               style={{
                 cursor: 'pointer',
                 fontSize: 14,
-                color: '#6096BA',
                 textDecoration: 'none',
               }}
             >
