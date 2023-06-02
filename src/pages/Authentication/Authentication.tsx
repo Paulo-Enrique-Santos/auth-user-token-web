@@ -45,7 +45,7 @@ const Authentication = () => {
         </svg>
       </div>
       {showRegister && (
-        <Grid container xs={6} md={6} height="100vh">
+        <Grid container xs={12} md={9} height="100vh">
           <Box
             sx={{
               zIndex: 1,
@@ -62,7 +62,7 @@ const Authentication = () => {
         </Grid>
       )}
       {showLogin && (
-        <Grid container xs={6} md={6} xsOffset={6} height="100vh">
+        <Grid container xs={12} md={9} mdOffset={6} height="100vh">
           <Box
             sx={{
               width: '100%',

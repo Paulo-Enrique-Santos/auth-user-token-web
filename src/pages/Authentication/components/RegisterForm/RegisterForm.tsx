@@ -97,7 +97,7 @@ const RegisterForm = ({ setShowLogin }: Props) => {
       zIndex={1}
       height="100%"
     >
-      <Grid item container xs={7}>
+      <Grid item container md={7} xs={12}>
         <Grid item container xs={12}>
           <Grid item container xs={12} justifyContent="center">
             <Typography

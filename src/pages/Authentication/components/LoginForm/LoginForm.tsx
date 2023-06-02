@@ -54,7 +54,7 @@ const LoginForm = ({ setShowRegister }: Props) => {
       zIndex={1}
       height="100%"
     >
-      <Grid item container xs={7}>
+      <Grid item container xs={12} md={7}>
         <Grid item container xs={12}>
           <Grid item container xs={12} justifyContent="center">
             <Typography
