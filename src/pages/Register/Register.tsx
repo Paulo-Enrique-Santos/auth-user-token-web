@@ -1,15 +1,26 @@
-import { Grid } from '@mui/material'
-import RegisterForm from './components/RegisterForm'
+import { Box, Grow } from '@mui/material'
+import Grid from '@mui/material/Unstable_Grid2'
+import RegisterForm from './components/RegisterForm/RegisterForm'
+import { showLoginAnimation, showRegisterAnimation } from './style'
+import LoginForm from './components/LoginForm/LoginForm'
+import { useState } from 'react'
 
 const Register = () => {
+  const [showRegister, setShowRegister] = useState(true)
+  const [showLogin, setShowLogin] = useState(false)
+
+  const handleSetShowLogin = () => {
+    setShowLogin(true)
+    setShowRegister(false)
+  }
+
+  const handleSetShowRegister = () => {
+    setShowLogin(false)
+    setShowRegister(true)
+  }
+
   return (
-    <Grid
-      container
-      height="100vh"
-      alignItems="center"
-      justifyContent="center"
-      sx={{ backgroundColor: '#F7F7F7' }}
-    >
+    <Grid container height="100vh" sx={{ backgroundColor: '#F7F7F7' }}>
       <div className="custom-shape-divider-bottom-1685654964">
         <svg
           data-name="Layer 1"
@@ -33,9 +44,39 @@ const Register = () => {
           ></path>
         </svg>
       </div>
-      <Grid container item xs={6} md={4}>
-        <RegisterForm />
-      </Grid>
+      {showRegister && (
+        <Grid container xs={6} md={6} height="100vh">
+          <Box
+            sx={{
+              zIndex: 1,
+              animation: `${showRegisterAnimation} 1s forwards ease-in-out`,
+              backgroundColor: '#fff',
+            }}
+          >
+            <Grow in={showRegister} timeout={2000}>
+              <Box sx={{ height: '100%' }}>
+                <RegisterForm setShowLogin={handleSetShowLogin} />
+              </Box>
+            </Grow>
+          </Box>
+        </Grid>
+      )}
+      {showLogin && (
+        <Grid container xs={6} md={6} xsOffset={6} height="100vh">
+          <Box
+            sx={{
+              animation: `${showLoginAnimation} 1s forwards ease-in-out`,
+              backgroundColor: '#fff',
+            }}
+          >
+            <Grow in={showLogin} timeout={2000}>
+              <Box sx={{ height: '100%' }}>
+                <LoginForm setShowRegister={handleSetShowRegister} />
+              </Box>
+            </Grow>
+          </Box>
+        </Grid>
+      )}
     </Grid>
   )
 }

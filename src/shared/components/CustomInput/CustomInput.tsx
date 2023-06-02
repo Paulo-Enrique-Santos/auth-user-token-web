@@ -4,27 +4,44 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { useState } from 'react'
 
 export interface Props {
   label: string
   id: string
   error: string | undefined
+  type: string
   value: string
   setValue: (e: React.ChangeEvent<any>) => void
   icon?: JSX.Element
 }
 
-const CustomInput = ({ label, error, value, setValue, icon }: Props) => {
+const CustomInput = ({
+  label,
+  id,
+  error,
+  value,
+  setValue,
+  icon,
+  type,
+}: Props) => {
+  const [localType, setLocalType] = useState(type)
+
+  const handleLocalType = () => {
+    setLocalType(localType ? 'text' : localType)
+  }
+
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth sx={{ marginBottom: '5px' }}>
       <TextField
         error={Boolean(error)}
-        id={label}
-        name={label}
+        id={id}
+        name={id}
         fullWidth
         value={value}
         label={label + ':'}
         variant="standard"
+        type={localType ?? 'text'}
         helperText={
           <Typography
             variant="body2"
@@ -38,11 +55,13 @@ const CustomInput = ({ label, error, value, setValue, icon }: Props) => {
         }
         InputLabelProps={{
           shrink: true,
-          style: { fontSize: 20 },
+          style: { fontSize: 18 },
         }}
         InputProps={{
           startAdornment: icon && (
-            <InputAdornment position="start">{icon}</InputAdornment>
+            <InputAdornment onClick={handleLocalType} position="start">
+              {icon}
+            </InputAdornment>
           ),
         }}
         onChange={setValue}
