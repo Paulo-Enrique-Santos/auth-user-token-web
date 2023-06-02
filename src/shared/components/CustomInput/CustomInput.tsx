@@ -4,7 +4,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { useState } from 'react'
 
 export interface Props {
   label: string
@@ -25,12 +24,6 @@ const CustomInput = ({
   icon,
   type,
 }: Props) => {
-  const [localType, setLocalType] = useState(type)
-
-  const handleLocalType = () => {
-    setLocalType(localType ? 'text' : localType)
-  }
-
   return (
     <FormControl fullWidth sx={{ marginBottom: '5px' }}>
       <TextField
@@ -41,7 +34,7 @@ const CustomInput = ({
         value={value}
         label={label + ':'}
         variant="standard"
-        type={localType ?? 'text'}
+        type={type}
         helperText={
           <Typography
             variant="body2"
@@ -59,9 +52,7 @@ const CustomInput = ({
         }}
         InputProps={{
           startAdornment: icon && (
-            <InputAdornment onClick={handleLocalType} position="start">
-              {icon}
-            </InputAdornment>
+            <InputAdornment position="start">{icon}</InputAdornment>
           ),
         }}
         onChange={setValue}

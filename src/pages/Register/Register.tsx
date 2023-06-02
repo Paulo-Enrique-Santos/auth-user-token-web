@@ -65,6 +65,8 @@ const Register = () => {
         <Grid container xs={6} md={6} xsOffset={6} height="100vh">
           <Box
             sx={{
+              width: '100%',
+              zIndex: 1,
               animation: `${showLoginAnimation} 1s forwards ease-in-out`,
               backgroundColor: '#fff',
             }}

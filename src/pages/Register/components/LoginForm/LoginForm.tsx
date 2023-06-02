@@ -1,6 +1,8 @@
 import { Grid, Button, Typography } from '@mui/material'
 import { useFormik } from 'formik'
+import EmailIcon from '@mui/icons-material/Email'
 import CustomInput from '../../../../shared/components/CustomInput/CustomInput'
+import ValidatePassword from '../ValidatePassword/ValidatePassword'
 
 interface LoginFormModel {
   email: string
@@ -34,7 +36,7 @@ const LoginForm = ({ setShowRegister }: Props) => {
     }
 
     if (values.password && values.password.length < 8) {
-      errors.password = 'A senha deve ter pelo menos 8 caracteres!'
+      errors.password = 'Informe uma senha válida!'
     }
 
     return errors
@@ -63,20 +65,27 @@ const LoginForm = ({ setShowRegister }: Props) => {
               Entre
             </Typography>
           </Grid>
-          <Grid item container xs={12} justifyContent="center">
+          <Grid
+            item
+            container
+            xs={12}
+            justifyContent="center"
+            alignItems="center"
+          >
             <Typography
               variant="subtitle1"
-              sx={{ fontSize: 14, color: 'rgba(0, 0, 0, 0.6)' }}
+              sx={{ fontSize: 14, color: 'info.main' }}
             >
               Ainda não possui uma conta?&nbsp;
             </Typography>
             <Typography
               onClick={setShowRegister}
               component="span"
+              color="secondary"
               style={{
                 cursor: 'pointer',
                 fontSize: 14,
-                color: '#6096BA',
+                color: 'secondary',
                 textDecoration: 'none',
               }}
             >
@@ -92,14 +101,14 @@ const LoginForm = ({ setShowRegister }: Props) => {
                 error={formik.errors.email}
                 value={formik.values.email}
                 setValue={formik.handleChange}
+                icon={<EmailIcon sx={{ fontSize: 24 }} />}
               />
-              <CustomInput
-                label="Senha"
+              <ValidatePassword
                 id="password"
-                type="password"
                 error={formik.errors.password}
                 value={formik.values.password}
                 setValue={formik.handleChange}
+                detailedValidation={false}
               />
             </Grid>
             <Grid

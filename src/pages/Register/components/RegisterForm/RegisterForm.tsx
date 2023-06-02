@@ -1,13 +1,21 @@
 import { Grid, Button, Typography } from '@mui/material'
 import { useFormik } from 'formik'
 import CustomInput from '../../../../shared/components/CustomInput/CustomInput'
+import ValidatePassword from '../ValidatePassword/ValidatePassword'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import PersonIcon from '@mui/icons-material/Person'
+import EmailIcon from '@mui/icons-material/Email'
 
 interface RegisterFormModel {
   name: string
   nickName: string
   email: string
   password: string
-  confirmPassword: string
+  length: string
+  specialCharacter: string
+  number: string
+  upperCase: string
+  lowerCase: string
 }
 
 export interface Props {
@@ -20,7 +28,11 @@ const RegisterForm = ({ setShowLogin }: Props) => {
     nickName: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    length: '',
+    specialCharacter: '',
+    number: '',
+    upperCase: '',
+    lowerCase: '',
   }
 
   const onSubmit = (values: RegisterFormModel) => {
@@ -28,7 +40,49 @@ const RegisterForm = ({ setShowLogin }: Props) => {
   }
 
   const validate = (values: RegisterFormModel) => {
-    console.log(values, 'values error')
+    const errors: RegisterFormModel = {
+      name: '',
+      nickName: '',
+      email: '',
+      password: '',
+      length: '',
+      specialCharacter: '',
+      number: '',
+      upperCase: '',
+      lowerCase: '',
+    }
+
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+    if (values.email && !emailRegex.test(values.email)) {
+      errors.email = 'Informe um email válido!'
+    }
+
+    if (values.password && values.password.length < 8) {
+      errors.length = 'A senha deve ter pelo menos 8 caracteres!'
+    }
+
+    const specialCharacterRegex = /[!@#$%^&*(.)_\-+=?]/
+    if (values.password && !specialCharacterRegex.test(values.password)) {
+      errors.specialCharacter =
+        'A senha deve conter pelo menos um caractere especial!'
+    }
+
+    const numberRegex = /\d/
+    if (values.password && !numberRegex.test(values.password)) {
+      errors.number = 'A senha deve conter pelo menos um número!'
+    }
+
+    const upperCaseRegex = /[A-Z]/
+    if (values.password && !upperCaseRegex.test(values.password)) {
+      errors.upperCase = 'A senha deve conter pelo menos uma letra maiúscula!'
+    }
+
+    const lowerCaseRegex = /[a-z]/
+    if (values.password && !lowerCaseRegex.test(values.password)) {
+      errors.lowerCase = 'A senha deve conter pelo menos uma letra minúscula!'
+    }
+
+    return errors
   }
 
   const formik = useFormik({ initialValues, validate, onSubmit })
@@ -89,6 +143,7 @@ const RegisterForm = ({ setShowLogin }: Props) => {
                 error={formik.errors.name}
                 value={formik.values.name}
                 setValue={formik.handleChange}
+                icon={<PersonIcon sx={{ fontSize: 24 }} />}
               />
               <CustomInput
                 label="NickName"
@@ -97,6 +152,7 @@ const RegisterForm = ({ setShowLogin }: Props) => {
                 error={formik.errors.nickName}
                 value={formik.values.nickName}
                 setValue={formik.handleChange}
+                icon={<AccountCircleIcon sx={{ fontSize: 24 }} />}
               />
               <CustomInput
                 label="Email"
@@ -105,14 +161,20 @@ const RegisterForm = ({ setShowLogin }: Props) => {
                 error={formik.errors.email}
                 value={formik.values.email}
                 setValue={formik.handleChange}
+                icon={<EmailIcon sx={{ fontSize: 24 }} />}
               />
-              <CustomInput
-                label="Senha"
+              <ValidatePassword
                 id="password"
-                type="password"
-                error={formik.errors.password}
+                errorDetailed={{
+                  length: formik.errors.length,
+                  specialCharacter: formik.errors.specialCharacter,
+                  number: formik.errors.number,
+                  upperCase: formik.errors.upperCase,
+                  lowerCase: formik.errors.lowerCase,
+                }}
                 value={formik.values.password}
                 setValue={formik.handleChange}
+                detailedValidation={true}
               />
             </Grid>
             <Grid
@@ -136,112 +198,6 @@ const RegisterForm = ({ setShowLogin }: Props) => {
         </Grid>
       </Grid>
     </Grid>
-    // <Card
-    //   sx={{
-    //     width: '100%',
-    //     zIndex: 1,
-    //     padding: '10px 20px',
-    //     borderRadius: '16px',
-    //   }}
-    // >
-    //   <CardHeader
-    //     title="Faça seu Cadastro!"
-    //     subheader="Informe seus dados corretamente para fazer o cadastro no nosso site ou faça o cadastro pelo facebook ou google!"
-    //     color="info"
-    //     titleTypographyProps={{
-    //       textAlign: 'center',
-    //       color: 'primary',
-    //       variant: 'h4',
-    //       fontSize: 28,
-    //       fontWeight: 500,
-    //     }}
-    //     subheaderTypographyProps={{
-    //       textAlign: 'center',
-    //       variant: 'subtitle1',
-    //       fontSize: 14,
-    //       color: 'rgba(0, 0, 0, 0.6)',
-    //     }}
-    //   ></CardHeader>
-    //   <CardContent sx={{ padding: '0 26px' }}>
-    //     <form onSubmit={formik.handleSubmit} style={{ width: '100%' }}>
-    //       <Grid item container xs={12}>
-    //         <Grid item xs={12}>
-    //           <CustomInput
-    //             label="Informe seu Nome"
-    //             id="name"
-    //             type="text"
-    //             error={formik.errors.name}
-    //             value={formik.values.name}
-    //             setValue={formik.handleChange}
-    //           />
-    //           <CustomInput
-    //             label="Informe um NickName"
-    //             id="nickName"
-    //             type="text"
-    //             error={formik.errors.nickName}
-    //             value={formik.values.nickName}
-    //             setValue={formik.handleChange}
-    //           />
-    //           <CustomInput
-    //             label="Informe seu Email"
-    //             id="email"
-    //             type="text"
-    //             error={formik.errors.email}
-    //             value={formik.values.email}
-    //             setValue={formik.handleChange}
-    //           />
-    //           <CustomInput
-    //             label="Informe sua Senha"
-    //             id="password"
-    //             type="password"
-    //             error={formik.errors.password}
-    //             value={formik.values.password}
-    //             setValue={formik.handleChange}
-    //           />
-    //           <CustomInput
-    //             label="Confirme sua Senha"
-    //             id="confirmPassword"
-    //             type="password"
-    //             error={formik.errors.confirmPassword}
-    //             value={formik.values.confirmPassword}
-    //             setValue={formik.handleChange}
-    //           />
-    //         </Grid>
-    //         <Grid
-    //           item
-    //           container
-    //           xs={12}
-    //           justifyContent="center"
-    //           marginTop={2}
-    //           marginBottom={1}
-    //         >
-    //           <Button
-    //             sx={{ borderRadius: '16px', padding: '10px 20px' }}
-    //             variant="contained"
-    //             type="submit"
-    //             fullWidth
-    //           >
-    //             cadastrar
-    //           </Button>
-    //         </Grid>
-    //         <Grid item container xs={12} justifyContent="center">
-    //           <Typography
-    //             variant="subtitle1"
-    //             sx={{ fontSize: 14, color: 'rgba(0, 0, 0, 0.6)' }}
-    //           >
-    //             Já possui uma conta?&nbsp;
-    //             <Link
-    //               to="/login"
-    //               style={{ color: '#6096BA', textDecoration: 'none' }}
-    //             >
-    //               Faça Login.
-    //             </Link>
-    //           </Typography>
-    //         </Grid>
-    //       </Grid>
-    //     </form>
-    //   </CardContent>
-    // </Card>
   )
 }
 
