@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom/dist/index'
-import Register from './pages/Register/Register'
+import Authentication from './pages/Authentication/Authentication'
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Register />} />
+        <Route path="/" element={<Authentication />} />
       </Routes>
     </BrowserRouter>
   )

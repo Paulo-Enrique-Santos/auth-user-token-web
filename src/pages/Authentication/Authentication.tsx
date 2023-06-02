@@ -5,7 +5,7 @@ import { showLoginAnimation, showRegisterAnimation } from './style'
 import LoginForm from './components/LoginForm/LoginForm'
 import { useState } from 'react'
 
-const Register = () => {
+const Authentication = () => {
   const [showRegister, setShowRegister] = useState(true)
   const [showLogin, setShowLogin] = useState(false)
 
@@ -83,4 +83,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Authentication
