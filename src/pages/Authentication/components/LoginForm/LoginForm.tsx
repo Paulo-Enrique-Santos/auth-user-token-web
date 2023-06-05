@@ -3,10 +3,18 @@ import { useFormik } from 'formik'
 import EmailIcon from '@mui/icons-material/Email'
 import CustomInput from '../../../../shared/components/CustomInput/CustomInput'
 import ValidatePassword from '../ValidatePassword/ValidatePassword'
+import { type UserLoginRequest } from '../../../../shared/model/user'
+import { useNavigate } from 'react-router-dom'
+import { UserAPI } from '../../../../api/user'
 
 interface LoginFormModel {
-  email: string
+  emailOrNickName: string
   password: string
+}
+
+const initialValues: LoginFormModel = {
+  emailOrNickName: '',
+  password: '',
 }
 
 export interface Props {
@@ -14,25 +22,30 @@ export interface Props {
 }
 
 const LoginForm = ({ setShowRegister }: Props) => {
-  const initialValues: LoginFormModel = {
-    email: '',
-    password: '',
-  }
+  const { login } = UserAPI()
+  const navigate = useNavigate()
 
   const onSubmit = (values: LoginFormModel) => {
     console.log(values)
   }
 
-  const validate = (values: LoginFormModel) => {
-    const errors: LoginFormModel = {
-      email: '',
-      password: '',
+  const handleSubmit = () => {
+    const values: LoginFormModel = formik.values
+
+    const request: UserLoginRequest = {
+      emailOrNickName: values.emailOrNickName,
+      password: values.password,
     }
 
-    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+    void login(request).then(() => {
+      navigate('/detalhes-usuario')
+    })
+  }
 
-    if (values.email && !emailRegex.test(values.email)) {
-      errors.email = 'Informe um email válido!'
+  const validate = (values: LoginFormModel) => {
+    const errors: LoginFormModel = {
+      emailOrNickName: '',
+      password: '',
     }
 
     if (values.password && values.password.length < 8) {
@@ -95,11 +108,11 @@ const LoginForm = ({ setShowRegister }: Props) => {
           <form onSubmit={formik.handleSubmit} style={{ width: '100%' }}>
             <Grid item xs={12} marginTop={5}>
               <CustomInput
-                label="Email"
-                id="email"
+                label="Email ou NickName"
+                id="emailOrNickName"
                 type="text"
-                error={formik.errors.email}
-                value={formik.values.email}
+                error={formik.errors.emailOrNickName}
+                value={formik.values.emailOrNickName}
                 setValue={formik.handleChange}
                 icon={<EmailIcon sx={{ fontSize: 24 }} />}
               />
@@ -123,7 +136,7 @@ const LoginForm = ({ setShowRegister }: Props) => {
                 sx={{ borderRadius: '6px', padding: '10px 20px' }}
                 variant="contained"
                 fullWidth
-                type="submit"
+                onClick={handleSubmit}
               >
                 Entre
               </Button>

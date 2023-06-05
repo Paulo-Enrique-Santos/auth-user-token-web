@@ -11,7 +11,7 @@ export interface UserRegisterResponse {
 }
 
 export interface UserLoginRequest {
-  email: string
+  emailOrNickName: string
   password: string
 }
 

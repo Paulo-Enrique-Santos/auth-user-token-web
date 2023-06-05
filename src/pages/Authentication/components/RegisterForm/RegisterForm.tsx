@@ -6,6 +6,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import PersonIcon from '@mui/icons-material/Person'
 import EmailIcon from '@mui/icons-material/Email'
 import { UserAPI } from '../../../../api/user'
+import { type UserRegisterRequest } from '../../../../shared/model/user'
 
 interface RegisterFormModel {
   name: string
@@ -43,7 +44,14 @@ const RegisterForm = ({ setShowLogin }: Props) => {
   const handleSubmit = () => {
     const values: RegisterFormModel = formik.values
 
-    void register(values).then(() => {
+    const request: UserRegisterRequest = {
+      email: values.email,
+      name: values.name,
+      nickName: values.nickName,
+      password: values.password,
+    }
+
+    void register(request).then(() => {
       setShowLogin()
     })
   }
