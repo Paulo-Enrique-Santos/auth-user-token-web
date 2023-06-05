@@ -5,6 +5,7 @@ import ValidatePassword from '../ValidatePassword/ValidatePassword'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import PersonIcon from '@mui/icons-material/Person'
 import EmailIcon from '@mui/icons-material/Email'
+import { UserAPI } from '../../../../api/user'
 
 interface RegisterFormModel {
   name: string
@@ -22,21 +23,29 @@ export interface Props {
   setShowLogin: () => void
 }
 
-const RegisterForm = ({ setShowLogin }: Props) => {
-  const initialValues: RegisterFormModel = {
-    name: '',
-    nickName: '',
-    email: '',
-    password: '',
-    length: '',
-    specialCharacter: '',
-    number: '',
-    upperCase: '',
-    lowerCase: '',
-  }
+const initialValues: RegisterFormModel = {
+  name: '',
+  nickName: '',
+  email: '',
+  password: '',
+  length: '',
+  specialCharacter: '',
+  number: '',
+  upperCase: '',
+  lowerCase: '',
+}
 
-  const onSubmit = (values: RegisterFormModel) => {
-    console.log(values)
+const RegisterForm = ({ setShowLogin }: Props) => {
+  const { register } = UserAPI()
+
+  const onSubmit = (values: RegisterFormModel) => {}
+
+  const handleSubmit = () => {
+    const values: RegisterFormModel = formik.values
+
+    void register(values).then(() => {
+      setShowLogin()
+    })
   }
 
   const validate = (values: RegisterFormModel) => {
@@ -188,8 +197,8 @@ const RegisterForm = ({ setShowLogin }: Props) => {
               <Button
                 sx={{ borderRadius: '6px', padding: '10px 20px' }}
                 variant="contained"
-                type="submit"
                 fullWidth
+                onClick={handleSubmit}
               >
                 Inscreva-se
               </Button>
