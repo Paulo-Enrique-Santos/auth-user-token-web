@@ -1,0 +1,33 @@
+@keyframes move-wave {
+  0% {
+    transform: rotateY(180deg) translateX(0%);
+  }
+
+  50% {
+    transform: rotateY(180deg) translateX(62%);
+  }
+
+  100% {
+    transform: rotateY(180deg) translateX(0%);
+  }
+}
+
+@media (min-width: 900px) {
+  @keyframes show-login-animation {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(50%);
+    }
+  }
+
+  @keyframes show-register-animation {
+    from {
+      transform: translateX(50%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
+}

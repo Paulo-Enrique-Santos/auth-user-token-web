@@ -1,12 +1,13 @@
 import { Grid, Button, Typography } from '@mui/material'
 import { useFormik } from 'formik'
 import CustomInput from '../../../../shared/components/CustomInput/CustomInput'
-import ValidatePassword from '../ValidatePassword/ValidatePassword'
+import ValidatePassword from '../../../../shared/components/ValidatePassword/ValidatePassword'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import PersonIcon from '@mui/icons-material/Person'
 import EmailIcon from '@mui/icons-material/Email'
 import { UserAPI } from '../../../../api/user'
 import { type UserRegisterRequest } from '../../../../shared/model/user'
+import { useNavigate } from 'react-router-dom'
 
 interface RegisterFormModel {
   name: string
@@ -18,10 +19,6 @@ interface RegisterFormModel {
   number: string
   upperCase: string
   lowerCase: string
-}
-
-export interface Props {
-  setShowLogin: () => void
 }
 
 const initialValues: RegisterFormModel = {
@@ -36,8 +33,9 @@ const initialValues: RegisterFormModel = {
   lowerCase: '',
 }
 
-const RegisterForm = ({ setShowLogin }: Props) => {
+const RegisterForm = () => {
   const { register } = UserAPI()
+  const navigate = useNavigate()
 
   const onSubmit = (values: RegisterFormModel) => {}
 
@@ -52,8 +50,12 @@ const RegisterForm = ({ setShowLogin }: Props) => {
     }
 
     void register(request).then(() => {
-      setShowLogin()
+      navigate('/login')
     })
+  }
+
+  const handleShowLogin = () => {
+    navigate('/login')
   }
 
   const validate = (values: RegisterFormModel) => {
@@ -139,7 +141,7 @@ const RegisterForm = ({ setShowLogin }: Props) => {
               Já possui uma conta?&nbsp;
             </Typography>
             <Typography
-              onClick={setShowLogin}
+              onClick={handleShowLogin}
               component="span"
               color="primary"
               style={{

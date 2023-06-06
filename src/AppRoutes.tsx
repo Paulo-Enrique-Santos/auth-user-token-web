@@ -1,17 +1,19 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Authentication from './pages/Authentication/Authentication'
-import UserDetails from './pages/UserDetails/UserDetails'
-import AuthProvider from './core/Auth/AuthProvider'
+import Home from './pages/Home/Home'
+import Register from './pages/Register/Register'
+import Login from './pages/Login/Login'
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Authentication />} />
-        <Route
+        <Route path="/cadastro" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        {/* <Route
           path="/detalhes-usuario"
-          element={<AuthProvider element={<UserDetails />} />}
-        />
+          element={<AuthProvider element={<Home />} />}
+        /> */}
       </Routes>
     </BrowserRouter>
   )

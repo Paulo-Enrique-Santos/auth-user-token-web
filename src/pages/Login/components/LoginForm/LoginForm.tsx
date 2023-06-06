@@ -2,7 +2,7 @@ import { Grid, Button, Typography } from '@mui/material'
 import { useFormik } from 'formik'
 import EmailIcon from '@mui/icons-material/Email'
 import CustomInput from '../../../../shared/components/CustomInput/CustomInput'
-import ValidatePassword from '../ValidatePassword/ValidatePassword'
+import ValidatePassword from '../../../../shared/components/ValidatePassword/ValidatePassword'
 import { type UserLoginRequest } from '../../../../shared/model/user'
 import { useNavigate } from 'react-router-dom'
 import { UserAPI } from '../../../../api/user'
@@ -17,11 +17,7 @@ const initialValues: LoginFormModel = {
   password: '',
 }
 
-export interface Props {
-  setShowRegister: () => void
-}
-
-const LoginForm = ({ setShowRegister }: Props) => {
+const LoginForm = () => {
   const { login } = UserAPI()
   const navigate = useNavigate()
 
@@ -56,6 +52,10 @@ const LoginForm = ({ setShowRegister }: Props) => {
   }
 
   const formik = useFormik({ initialValues, validate, onSubmit })
+
+  const handleShowRegister = () => {
+    navigate('/cadastro')
+  }
 
   return (
     <Grid
@@ -92,7 +92,7 @@ const LoginForm = ({ setShowRegister }: Props) => {
               Ainda não possui uma conta?&nbsp;
             </Typography>
             <Typography
-              onClick={setShowRegister}
+              onClick={handleShowRegister}
               component="span"
               color="primary"
               style={{
