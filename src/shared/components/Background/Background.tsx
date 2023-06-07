@@ -9,6 +9,7 @@ const Background = () => (
       backgroundColor: '#F7F7F7',
       overflowX: 'hidden',
       position: 'absolute',
+      zIndex: -1,
     }}
   >
     <div className="custom-shape-divider-bottom-1685654964">
