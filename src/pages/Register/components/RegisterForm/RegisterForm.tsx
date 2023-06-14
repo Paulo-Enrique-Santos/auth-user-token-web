@@ -37,7 +37,9 @@ const RegisterForm = () => {
   const { register } = UserAPI()
   const navigate = useNavigate()
 
-  const onSubmit = (values: RegisterFormModel) => {}
+  const onSubmit = (values: RegisterFormModel) => {
+    console.log(values)
+  }
 
   const handleSubmit = () => {
     const values: RegisterFormModel = formik.values
