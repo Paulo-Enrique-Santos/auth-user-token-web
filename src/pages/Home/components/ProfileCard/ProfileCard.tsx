@@ -22,6 +22,7 @@ const ProfileCard = () => {
   return (
     <Grid
       container
+      item
       xs={12}
       display="flex"
       justifyContent="center"
